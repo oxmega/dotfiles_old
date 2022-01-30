@@ -1,0 +1,30 @@
+! colors colors colors
+! ▄▄·       ▄▄▌        ▄▄▄  .▄▄ ·
+!▐█ ▌▪▪     ██•  ▪     ▀▄ █·▐█ ▀.
+!██ ▄▄ ▄█▀▄ ██▪   ▄█▀▄ ▐▀▀▄ ▄▀▀▀█▄
+!▐███▌▐█▌.▐▌▐█▌▐▌▐█▌.▐▌▐█•█▌▐█▄▪▐█
+!·▀▀▀  ▀█▄▀▪.▀▀▀  ▀█▄▀▪.▀  ▀ ▀▀▀▀
+!
+! Abstracted from .Xresources becuase im fickle. And clumsy.
+! OX! // github: acannibalox // https: raisedfist.net // smtp: kpatterson0@gmail.com!
+
+#define bg    #262626
+#define blk   #363334
+#define fg    #bebfbe
+#define bblk  #4a484b
+#define red   #8F504E
+#define grn   #518873
+#define ylw   #897E4D
+#define blu   #54688C
+#define mag   #7a6054
+#define cyn   #556f86
+#define wht   #c3c1b8
+#define bred  #8F504E
+#define bgrn  #518873
+#define bylw  #897E4D
+#define bblu  #54688C
+#define bmag  #7a6054
+#define bcyn  #556f86
+#define bwht  #c3c1b8
+
+! vim: nowrap

@@ -1,0 +1,45 @@
+#!/bin/sh
+FEEDS=$HOME/dmenu/rss_feeds
+BROWSER="urxvt -e w3m $1"
+_dateform="%b %e (%r)"
+
+# Build menu, get selection
+FEEDMENU="$(awk '{print $1}' $FEEDS | rss_wrap -p "Current Feeds" )"
+	if ! test "$FEEDMENU"; then 
+		exit 1
+	fi
+FEEDURL="$( cat $FEEDS | grep $FEEDMENU | awk '{print $3}')"
+	if ! test $FEEDURL; then
+		exit 1
+	fi
+FEEDUPDATES="$( wget -qO- "$FEEDURL" | xml2 |
+	awk -F "=" -v dateform="$_dateform" '
+	function cdate(d) {
+		 cmd = sprintf("date -d \"%s\" +\"%s\"", d, dateform)
+		 cmd | getline ret
+		 close(cmd)
+		 return ret
+	}
+	/^(\/(rss\/channel|rdf:RDF)\/item\/link|\/feed\/entry\/link\/@href)/ {
+		sub($1"=", "", $0) 
+		link[l++] = $0 
+	}
+		/^\/(rss\/channel|rdf:RDF)\/item\/(pubDate|dc:date)/ {
+		date[d++] = cdate($2)
+	}
+		/^(\/feed\/entry\/title|\/(rss\/channel|rdf:RDF)\/item\/title)/ {
+		title[t++]= $2
+	}
+END{ 
+
+	for (x = 0; x < t; x++) 
+	printf "%-10s %10s %s\n", 
+	date[x], title[x], link[x];
+	}
+' | rss_wrap -p "RSS Feeds" -i)"
+
+if ! test "$FEEDUPDATES"; then
+	exit 1
+fi
+
+exec $BROWSER "${FEEDUPDATES##* }"
